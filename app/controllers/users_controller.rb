@@ -14,6 +14,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "User create."
+      #UserMailer.deliver_registration_confirmation(@user)
+      UserMailer.registration_confirmation(@user).deliver
       redirect_to @user
     else
       render "new"
